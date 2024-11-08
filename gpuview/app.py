@@ -50,6 +50,8 @@ def report_gpustat():
         resp = {'error': 'Excluded self!'}
     else:
         resp = core.my_gpustat()
+    response.set_header('Access-Control-Allow-Origin', '*')
+    response.add_header('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS')
     return json.dumps(resp, default=_date_handler)
 
 

@@ -63,7 +63,8 @@ def my_gpustat():
                 gpu.pop('processes', None)
                 gpu.pop("uuid", None)
                 gpu.pop("query_time", None)
-
+            gpu.pop('processes', None)
+            '''
             gpu['flag'] = 'bg-primary'
             if gpu['temperature.gpu'] > 75:
                 gpu['flag'] = 'bg-danger'
@@ -71,6 +72,12 @@ def my_gpustat():
                 gpu['flag'] = 'bg-warning'
             elif gpu['temperature.gpu'] > 25:
                 gpu['flag'] = 'bg-success'
+            '''
+            gpu['flag'] = 'bg-success'
+            if gpu['utilization.gpu'] > 0:
+                gpu['flag'] = 'bg-warning'
+            elif gpu['utilization.gpu'] > 50:
+                gpu['flag'] = 'bg-danger'
 
         if delete_list:
             for gpu_id in delete_list:
