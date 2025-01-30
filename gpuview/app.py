@@ -15,6 +15,7 @@ from bottle import Bottle, TEMPLATE_PATH, template, response
 
 from . import utils
 from . import core
+from . import cpu_stats
 
 
 app = Bottle()
@@ -30,7 +31,6 @@ def index():
     gpustats = core.all_gpustats()
     now = datetime.now().strftime('Updated at %Y-%m-%d %H-%M-%S')
     return template('index', gpustats=gpustats, update_time=now)
-
 
 @app.route('/gpustat', methods=['GET'])
 def report_gpustat():
@@ -50,6 +50,7 @@ def report_gpustat():
         resp = {'error': 'Excluded self!'}
     else:
         resp = core.my_gpustat()
+    resp['cpu'] = cpu_stats.get_stats()
     response.set_header('Access-Control-Allow-Origin', '*')
     response.add_header('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS')
     return json.dumps(resp, default=_date_handler)
