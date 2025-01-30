@@ -5,7 +5,7 @@ from collections import defaultdict
 
 def get_stats():
     n_cpus = multiprocessing.cpu_count()
-    out = subprocess.check_output(['top', '-b', '-n1', '-e', 'g']).decode('utf-8').split('\n')[7:-1]
+    out = subprocess.check_output(['top', '-b', '-n1']).decode('utf-8').split('\n')[7:-1]
     cpu = defaultdict(float)
     mem = defaultdict(float)
     for line in out:
