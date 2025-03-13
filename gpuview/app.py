@@ -64,7 +64,7 @@ def main():
         core.safe_zone(args.safe_zone)
         global EXCLUDE_SELF
         EXCLUDE_SELF = args.exclude_self
-        app.run(host=args.host, port=args.port, debug=args.debug)
+        app.run(server='gunicorn', host=args.host, port=args.port, debug=args.debug)
     elif 'service' == args.action:
         core.install_service(host=args.host,
                              port=args.port,
